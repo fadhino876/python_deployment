@@ -40,5 +40,6 @@ jobs:
     - name: Test connection
       run: |
         ssh -o StrictHostKeyChecking=no ${{secrets.SSH_USER}}@${{ secrets.SSH_HOST}} "echo 'Hello World'"
+
         
       
