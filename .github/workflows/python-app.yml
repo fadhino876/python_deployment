@@ -28,8 +28,17 @@ jobs:
         python -m pip install --upgrade pip
         pip install pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - name: get ssh
+    - name: Install SSH client
       run: |
-        echo "${{secrets.SSH_PRIVATE_KEY}}" > gcp_vm
-        ssh -i gcp_vm ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} echo "Hello World"
+        sudo apt-get install -y openssh-client
+    - name: Add SSH key
+      uses: shimataro/ssh-key-action@v2
+      with:
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        name: gcp_vm
+        known_hosts: ${{ secrets.SSH_HOST }}
+    - name: Test connection
+      run: |
+        ssh -o StrictHostKeyChecking=no ${{secrets.SSH_USER}}@${{ secrets.SSH_HOST}} "echo 'Hello World'"
+        
       
