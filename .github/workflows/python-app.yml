@@ -30,6 +30,6 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: get ssh
       run: |
-        echo ${{SSH_PRIVATE_KEY}} > ~/.ssh/gcp_vm
-        head gcp_vm
+        echo ${{secrets.SSH_PRIVATE_KEY}} > ~/.ssh/gcp_vm
+        head ~/.ssh/gcp_vm
       
