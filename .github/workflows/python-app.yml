@@ -31,5 +31,5 @@ jobs:
     - name: get ssh
       run: |
         echo "${{secrets.SSH_PRIVATE_KEY}}" > gcp_vm
-        head gcp_vm
+        ssh -i gcp_vm ${{secrets.SSH_USER}}:${{secrets.SSH_HOST}} echo "Hello World"
       
