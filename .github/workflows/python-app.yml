@@ -39,7 +39,7 @@ jobs:
     #     known_hosts: ${{ secrets.SSH_HOST }}
     - name: Add SSH key
       run: |
-        touch ~/.ssh/gcp_vm 
+        mkdir ~/.ssh
         echo "${{secrets.SSH_PRIVATE_KEY}}" > ~/.ssh/gcp_vm
         ssh-keyscan ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
     - name: Test connection
