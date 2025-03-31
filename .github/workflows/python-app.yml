@@ -40,8 +40,8 @@ jobs:
     - name: Add SSH key
       run: |
         mkdir ~/.ssh
+        chmod 400 ~/.ssh/*
         echo "${{secrets.SSH_PRIVATE_KEY}}" > ~/.ssh/gcp_vm
-        chmod 400 ~/.ssh/gcp_vm
         ssh-keyscan ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
     - name: Test connection
       run: |
