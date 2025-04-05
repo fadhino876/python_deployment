@@ -14,8 +14,6 @@ services:
       container_name: fastapi
       build: .
       image: fastapi_app
-      ports:
-        - "8081:8081"
       environment:
         DB_USER: ${POSTGRES_USER}
         DB_PASSWORD: ${POSTGRES_PASSWORD}
