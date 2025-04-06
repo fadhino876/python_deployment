@@ -49,9 +49,9 @@ jobs:
           ssh-keyscan -H ${{secrets.SSH_HOST}} >> ~/.ssh/known_hosts
       - name: "docker compose up"
         env:
-          POSTGRES_USER: ${{secrets.POSTGRES_USER}}
-          POSTGRES_PASSWORD: ${{secrets.POSTGRES_PASSWORD}}
-          POSTGRES_DB: ${{secrets.POSTGRES_DB}}
+          POSTGRES_USER: "${{secrets.POSTGRES_USER}}"
+          POSTGRES_PASSWORD: "${{secrets.POSTGRES_PASSWORD}}"
+          POSTGRES_DB: "${{secrets.POSTGRES_DB}}"
         run: |
           scp ./docker-compose.yaml target:~
           ssh target "sudo docker compose down"
