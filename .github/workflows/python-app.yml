@@ -28,11 +28,11 @@ jobs:
     needs: ["build-and-test"]
     steps:
       - uses: actions/checkout@v4
-      - name: "Build and push image"
-        run: |
-          docker login --username Tegarr123 --password ${{ secrets.PAT_DOCKER_REGISTRY}} ghcr.io
-          docker build . -f ./app.Dockerfile -t ghcr.io/tegarr123/fastapi-image:latest
-          docker push ghcr.io/tegarr123/fastapi-image:latest
+      # - name: "Build and push image"
+      #   run: |
+      #     docker login --username Tegarr123 --password ${{ secrets.PAT_DOCKER_REGISTRY}} ghcr.io
+      #     docker build . -f ./app.Dockerfile -t ghcr.io/tegarr123/fastapi-image:latest
+      #     docker push ghcr.io/tegarr123/fastapi-image:latest
       - name: "Install ssh key"
         uses: "shimataro/ssh-key-action@v2"
         with:
@@ -49,7 +49,7 @@ jobs:
           ssh-keyscan -H ${{secrets.SSH_HOST}} >> ~/.ssh/known_hosts
       - name: "Test SSH"
         run: |
-          ssh -i ~/.ssh/gcp_vm ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} echo 'Hello World'
+          ssh target echo 'Hello World'
       
 
       
