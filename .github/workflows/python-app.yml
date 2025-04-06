@@ -51,7 +51,7 @@ jobs:
         run: |
           bash -c "
             scp ./docker-compose.yaml target:~
-            scp ./nginx.conf target:~
+            scp nginx.conf target:~/
             ssh target sudo docker compose down
             ssh target sudo docker compose up --build -d
           "
