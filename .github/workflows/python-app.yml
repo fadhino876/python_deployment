@@ -18,6 +18,9 @@ jobs:
       - name: "Install dependencies"
         run: |
           pip install -r app/requirements.txt
-          
+      - name: "Test the app"
+        run: |
+          pytest app/test_main.py
+
       
       
