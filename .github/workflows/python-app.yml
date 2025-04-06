@@ -49,7 +49,7 @@ jobs:
           ssh-keyscan -H ${{secrets.SSH_HOST}} >> ~/.ssh/known_hosts
       - name: "docker compose up"
         run: |
-          scp .docker-compose.yaml target:~
+          scp ./docker-compose.yaml target:~
         # ssh target "docker compose up -f ~/docker_compose.yaml --build"
       
 
