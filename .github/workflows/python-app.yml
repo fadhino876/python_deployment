@@ -46,7 +46,7 @@ jobs:
               IdentityFile ~/,ssh/gcp_vm
       - name: "Test SSH"
         run: |
-          ssh target "echo 'Hello World'"
+          ssh -i ~/.ssh/gcp_vm ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} echo 'Hello World'
       
 
       
