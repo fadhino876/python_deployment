@@ -12,13 +12,14 @@ services:
         - backend
     fastapi:
       container_name: fastapi
-      image: ghcr.io/tegarr123/fastapi-image
-      environment:
-        DB_USER: ${POSTGRES_USER}
-        DB_PASSWORD: ${POSTGRES_PASSWORD}
-        DB_NAME: ${POSTGRES_DB}
-        DB_HOST: postgre-db
-        CALL_MY_NAME: Tegarr
+      image: ghcr.io/tegarr123/fastapi-image:latest
+      # environment:
+      #   DB_USER: ${POSTGRES_USER}
+      #   DB_PASSWORD: ${POSTGRES_PASSWORD}
+      #   DB_NAME: ${POSTGRES_DB}
+      #   DB_HOST: postgre-db
+      #   CALL_MY_NAME: Tegarr
+      env_file: ~/app.env
       command: sh -c "python main.py"
       volumes:
         - type: bind
@@ -32,16 +33,17 @@ services:
 
     postgre-db:
       container_name: postgre-db
-      image: ghcr.io/tegarr123/db-image
+      image: ghcr.io/tegarr123/db-image:latest
       build:
         context: .
         dockerfile: "./db.Dockerfile"
       volumes:
         - postgre-vol:/var/lib/postgresql/data
-      environment:
-        POSTGRES_USER: ${POSTGRES_USER}
-        POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-        POSTGRES_DB: ${POSTGRES_DB}
+      # environment:
+      #   POSTGRES_USER: ${POSTGRES_USER}
+      #   POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      #   POSTGRES_DB: ${POSTGRES_DB}
+      env_file: ~/db.env
       networks:
         - backend
 
