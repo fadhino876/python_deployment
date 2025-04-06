@@ -6,7 +6,7 @@ on:
 
 
 jobs:
-  build:
+  build-and-test:
     runs-on: "ubuntu-latest"
 
     steps:
@@ -23,11 +23,25 @@ jobs:
           CALL_MY_NAME: 'Tegar'
         run: |
           pytest app/test_main.py
+  deploy:
+    runs-on: "ubuntu-latest"
+    needs: ["build-and-test"]
+    steps:
       - name: "Build and push image"
         run: |
           docker login --username Tegarr123 --password ${{ secrets.PAT_DOCKER_REGISTRY}} ghcr.io
           docker build . -f ./app.Dockerfile -t ghcr.io/tegarr123/fastapi-image:latest
           docker push ghcr.io/tegarr123/fastapi-image:latest
+      - name: "Install ssh key"
+        uses: "shimataro/ssh-key-action@v2"
+        with:
+          key: ${{ secrets.SSH_PRIVATE_KEY}}
+          name: gcp_vm
+          known_hosts: ${{secrets.SSH_HOST}}
+      - name: "Test SSH"
+        run: |
+          ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} echo 'Hello World'
+      
 
       
       
