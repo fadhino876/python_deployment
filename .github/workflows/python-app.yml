@@ -25,9 +25,9 @@ jobs:
           pytest app/test_main.py
       - name: "Build and push image"
         run: |
-          docker login --username Tegarr123 --password ${{ secrets.PAT_docker_registry}} ghcr.io
-          docker build . -f ./app.Dockerfile -t ghcr.io/tegarr123/fastapi-image
-          docker push
+          docker login --username Tegarr123 --password ${{ secrets.PAT_DOCKER_REGISTRY}} ghcr.io
+          docker build . -f ./app.Dockerfile -t ghcr.io/tegarr123/fastapi-image:latest
+          docker push ghcr.io/tegarr123/fastapi-image:latest
 
       
       
