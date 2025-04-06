@@ -28,11 +28,11 @@ jobs:
     needs: ["build-and-test"]
     steps:
       - uses: actions/checkout@v4
-      - name: "Build and push image"
-        run: |
-          docker login --username Tegarr123 --password ${{ secrets.PAT_DOCKER_REGISTRY}} ghcr.io
-          docker build . -f ./app.Dockerfile -t ghcr.io/tegarr123/fastapi-image:latest
-          docker push ghcr.io/tegarr123/fastapi-image:latest
+      # - name: "Build and push image"
+      #   run: |
+      #     docker login --username Tegarr123 --password ${{ secrets.PAT_DOCKER_REGISTRY}} ghcr.io
+      #     docker build . -f ./app.Dockerfile -t ghcr.io/tegarr123/fastapi-image:latest
+      #     docker push ghcr.io/tegarr123/fastapi-image:latest
       - name: "Install ssh key"
         uses: "shimataro/ssh-key-action@v2"
         with:
@@ -47,15 +47,13 @@ jobs:
       - name: "Set known hosts"
         run: |
           ssh-keyscan -H ${{secrets.SSH_HOST}} >> ~/.ssh/known_hosts
-      # - name: "docker compose up"
-      #   run: |
-      #     bash -c "
-      #       scp ./docker-compose.yaml target:~
-      #       ssh target sudo docker compose down
-      #       ssh target sudo docker compose up --build -d
-      #     "
       - name: "docker compose up"
-        uses: appleboy/ssh-action@v1
-        
+        run: |
+          bash -c "
+            scp ./docker-compose.yaml target:~
+            ssh target sudo docker compose down
+            ssh target sudo docker compose up --build -d
+          "
+
       
       
