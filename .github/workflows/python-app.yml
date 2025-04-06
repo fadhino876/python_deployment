@@ -39,9 +39,14 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY}}
           name: gcp_vm
           known_hosts: ${{secrets.SSH_HOST}}
+          config: |
+            Host target
+              HostName ${{secrets.SSH_HOST}}
+              User ${{secrets.SSH_USER}}
+              IdentityFile ~/,ssh/gcp_vm
       - name: "Test SSH"
         run: |
-          ssh ${{secrets.SSH_USER}}@${{secrets.SSH_HOST}} echo 'Hello World'
+          ssh target "echo 'Hello World'"
       
 
       
