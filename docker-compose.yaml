@@ -12,14 +12,17 @@ services:
         - backend
     fastapi:
       container_name: fastapi
-      build: .
-      image: fastapi_app
+      build: 
+        context: .
+        dockerfile: ./app.Dockerfile
+      image: fastapi_app-image
       environment:
         DB_USER: ${POSTGRES_USER}
         DB_PASSWORD: ${POSTGRES_PASSWORD}
         DB_NAME: ${POSTGRES_DB}
         DB_HOST: postgre-db
         CALL_MY_NAME: Tegarr
+      command: sh -c "python main.py"
       volumes:
         - type: bind
           source: ./app
@@ -32,7 +35,10 @@ services:
 
     postgre-db:
       container_name: postgre-db
-      image: postgres:latest
+      image: postgre-db-image
+      build:
+        context: .
+        dockerfile: "./db.Dockerfile"
       volumes:
         - postgre-vol:/var/lib/postgresql/data
       environment:

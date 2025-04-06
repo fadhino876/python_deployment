@@ -14,9 +14,10 @@ jobs:
       - name: "Setup python 3.11"
         uses: actions/setup-python@v3
         with:
-          python_version: '3.11'
+          python-version: '3.11'
       - name: "Install dependencies"
         run: |
           pip install -r app/requirements.txt
+          
       
       

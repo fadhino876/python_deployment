@@ -5,6 +5,6 @@ COPY ./app/ .
 run pip install -r requirements.txt
 add read.txt read.txt
 expose 8081
-cmd ["pytest"]
-cmd ["python", "main.py"]
+# cmd ["pytest"]
+# cmd ["python", "main.py"]
 
