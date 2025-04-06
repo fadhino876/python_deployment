@@ -21,11 +21,11 @@ services:
       #   CALL_MY_NAME: Tegarr
       env_file: ./app.env
       command: sh -c "python main.py"
-      volumes:
-        - type: bind
-          source: ./app
-          target: /app
-          read_only: true
+      # volumes:
+      #   - type: bind
+      #     source: ./app
+      #     target: /app
+      #     read_only: true
       depends_on:
         - postgre-db
       networks:
