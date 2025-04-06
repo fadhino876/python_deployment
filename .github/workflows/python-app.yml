@@ -42,9 +42,6 @@ jobs:
           config: |
             Host target
               HostName ${{secrets.SSH_HOST}}
-              SetEnv POSTGRES_USER=${{secrets.POSTGRES_USER}}
-              SetEnv POSTGRES_DB=${{secrets.POSTGRES_DB}}
-              SetEnv POSTGRES_PASSWORD=${{secrets.POSTGRES_PASSWORD}}
               User ${{secrets.SSH_USER}}
               IdentityFile ~/.ssh/gcp_vm
       - name: "Set known hosts"
@@ -57,10 +54,14 @@ jobs:
       #     ssh target "export POSTGRES_PASSWORD=${{secrets.POSTGRES_PASSWORD}}"
       - name: "docker compose up"
         run: |
-          scp ./docker-compose.yaml target:~
-          ssh target "sudo docker compose down"
-          ssh target "sudo docker compose up -f ~/docker_compose.yaml --build -d"
-      
+          bash -c "
+            scp ./docker-compose.yaml target:~
+            ssh target sudo docker compose down
+            ssh target export POSTGRES_USER=${{secrets.POSTGRES_USER}}
+            ssh target export POSTGRES_DB=${{secrets.POSTGRES_DB}}
+            ssh target export POSTGRES_PASSWORD=${{secrets.POSTGRES_PASSWORD}}
+            ssh target sudo docker compose up -f ~/docker_compose.yaml --build -d
+          "
 
       
       
