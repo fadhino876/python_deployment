@@ -47,9 +47,10 @@ jobs:
       - name: "Set known hosts"
         run: |
           ssh-keyscan -H ${{secrets.SSH_HOST}} >> ~/.ssh/known_hosts
-      - name: "Test SSH"
+      - name: "docker compose up"
         run: |
-          ssh target echo 'Hello World'
+          scp .docker-compose.yaml target:~
+        # ssh target "docker compose up -f ~/docker_compose.yaml --build"
       
 
       
