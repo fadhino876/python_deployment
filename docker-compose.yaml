@@ -19,7 +19,7 @@ services:
       #   DB_NAME: ${POSTGRES_DB}
       #   DB_HOST: postgre-db
       #   CALL_MY_NAME: Tegarr
-      env_file: ~/app.env
+      env_file: ./app.env
       command: sh -c "python main.py"
       volumes:
         - type: bind
@@ -43,7 +43,7 @@ services:
       #   POSTGRES_USER: ${POSTGRES_USER}
       #   POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       #   POSTGRES_DB: ${POSTGRES_DB}
-      env_file: ~/db.env
+      env_file: ./db.env
       networks:
         - backend
 
