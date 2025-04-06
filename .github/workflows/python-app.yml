@@ -43,7 +43,7 @@ jobs:
             Host target
               HostName ${{secrets.SSH_HOST}}
               User ${{secrets.SSH_USER}}
-              IdentityFile ~/,ssh/gcp_vm
+              IdentityFile ~/.ssh/gcp_vm
       - name: "Set known hosts"
         run: |
           ssh-keyscan -H ${{secrets.SSH_HOST}} >> ~/.ssh/known_hosts
