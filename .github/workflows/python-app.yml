@@ -50,7 +50,8 @@ jobs:
       - name: "docker compose up"
         run: |
           scp ./docker-compose.yaml target:~
-        # ssh target "docker compose up -f ~/docker_compose.yaml --build"
+          ssh target "docker compose down"
+          ssh target "docker compose up -f ~/docker_compose.yaml --build"
       
 
       
