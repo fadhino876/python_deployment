@@ -34,9 +34,9 @@ services:
     postgre-db:
       container_name: postgre-db
       image: ghcr.io/tegarr123/db-image:latest
-      build:
-        context: .
-        dockerfile: "./db.Dockerfile"
+      # build:
+      #   context: .
+      #   dockerfile: "./db.Dockerfile"
       volumes:
         - postgre-vol:/var/lib/postgresql/data
       # environment:
